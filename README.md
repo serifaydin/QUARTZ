@@ -1,3 +1,66 @@
+.Net Framework Mef Code
+public class MultiEngineLibrary
+    
+{
+        
+[ImportMany(typeof(IJobModule))]
+        
+public IEnumerable<IJobModule> Modules { get; set; }
+
+        
+public MultiEngineLibrary(string File)
+        
+{
+            
+Console.WriteLine("------Çoklu Modül-------");
+
+            
+try
+            
+{
+                
+var catalog = new AggregateCatalog();
+                
+catalog.Catalogs.Add(new AssemblyCatalog(typeof(MultiEngineLibrary).Assembly));
+                
+catalog.Catalogs.Add(new DirectoryCatalog(File, "CL_*.dll"));
+
+                
+CompositionContainer container = new CompositionContainer(catalog);
+
+                
+var batch = new CompositionBatch();
+                
+batch.AddPart(this);
+
+                
+container.Compose(batch);
+            
+}
+            catch (FileNotFoundException)
+            
+{
+
+            }
+            
+catch (CompositionException) // Belirtilen yol içerisi boþ ise
+            
+{
+
+  
+          
+}
+           
+ catch (DirectoryNotFoundException) // Belirtilen yol doðru deðil ise
+            
+{
+
+            
+}
+        
+}
+    
+}
 Thread Jon Manager
 
 public class JobManager
@@ -143,49 +206,22 @@ Core Mef Code
             }
         }
     }
-.Net Framework Mef Code
 
-public class MultiEngineLibrary
-    {
-        [ImportMany(typeof(IJobModule))]
-        public IEnumerable<IJobModule> Modules { get; set; }
 
-        public MultiEngineLibrary(string File)
-        {
-            Console.WriteLine("------Çoklu Modül-------");
-
-            try
-            {
-                var catalog = new AggregateCatalog();
-                catalog.Catalogs.Add(new AssemblyCatalog(typeof(MultiEngineLibrary).Assembly));
-                catalog.Catalogs.Add(new DirectoryCatalog(File, "CL_*.dll"));
-
-                CompositionContainer container = new CompositionContainer(catalog);
-
-                var batch = new CompositionBatch();
-                batch.AddPart(this);
-
-                container.Compose(batch);
-            }
-            catch (FileNotFoundException)
-            {
-
-            }
-            catch (CompositionException) // Belirtilen yol içerisi boþ ise
-            {
-
-            }
-            catch (DirectoryNotFoundException) // Belirtilen yol doðru deðil ise
-            {
-
-            }
-        }
-    }
 .Net Core and Quartz
-https://github.com/serifaydin/QUARTZ/blob/master/.Net%20Core%20%26%20Quartz%20%26%20Managed-Extensibility-Framework/CoreJob/screen.PNG
+<p align="center">
+  <img src="https://github.com/serifaydin/QUARTZ/blob/master/.Net%20Core%20%26%20Quartz%20%26%20Managed-Extensibility-Framework/CoreJob/screen.PNG">
+</p>
+
+
 
 QUARTZ/.Net Framework & Quartz & Managed-Extensibility-Framework
-https://github.com/serifaydin/QUARTZ/blob/master/.Net%20Framework%20%26%20Quartz%20%26%20Managed-Extensibility-Framework/CA_MultiQuartz/Screen.PNG
+<p align="center">
+  <img src="https://github.com/serifaydin/QUARTZ/blob/master/.Net%20Framework%20%26%20Quartz%20%26%20Managed-Extensibility-Framework/CA_MultiQuartz/Screen.PNG">
+</p>
+
 
 QUARTZ/Thread & Quartz Management
-https://github.com/serifaydin/QUARTZ/blob/master/Thread%20%26%20Quartz%20Management/WFA_Jobs/screen.PNG
+<p align="center">
+  <img src="https://github.com/serifaydin/QUARTZ/blob/master/Thread%20%26%20Quartz%20Management/WFA_Jobs/screen.PNG">
+</p>
